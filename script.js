@@ -1,6 +1,6 @@
 // API Keys (would normally be secured on the backend)
-const YOUTUBE_API_KEY = 'AIzaSyCdlKYyZDjN48vzHMjLCG8wElNNc';
-const OPENAI_API_KEY = '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';
+const YOUTUBE_API_KEY = 'YOUTUBE-API-KEY';
+const OPENAI_API_KEY = 'OPEN-AI-API-KEY';
 
 // Global Variables
 let creatorsData = [];
