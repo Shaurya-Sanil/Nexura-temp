@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NExura - Gaming Creator Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.svg" alt="NExura Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#dashboard" class="active">Dashboard</a></li>
+                <li><a href="#creators">Creators</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#rising-stars">Rising Stars</a></li>
+                <li><a href="#ai-assistant">AI Assistant</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="dashboard">
+            <h1>Indian Gaming Creator Analytics</h1>
+            <p class="subtitle">Discover the right creators for your brand's sponsorships</p>
+            
+            <div class="search-container">
+                <input type="text" id="global-search" placeholder="Search creators by name, game, or audience...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="dashboard-cards">
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-user-friends"></i></div>
+                    <div class="card-content">
+                        <h3>Total Creators</h3>
+                        <div class="card-value">250+</div>
+                        <div class="card-trend positive">+15 this month</div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+                    <div class="card-content">
+                        <h3>Game Categories</h3>
+                        <div class="card-value">12</div>
+                        <div class="card-trend positive">+2 this month</div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="card-content">
+                        <h3>Avg. Engagement</h3>
+                        <div class="card-value">9.7%</div>
+                        <div class="card-trend positive">+1.2% this month</div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="card-content">
+                        <h3>Rising Stars</h3>
+                        <div class="card-value">18</div>
+                        <div class="card-trend positive">+5 this month</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-charts">
+                <div class="chart-container">
+                    <h3>Engagement Distribution</h3>
+                    <canvas id="engagement-distribution-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Game Distribution</h3>
+                    <canvas id="game-distribution-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Growth Trends</h3>
+                    <canvas id="growth-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="creators" class="creators">
+            <h2>Creator Database</h2>
+            <div class="search-filter">
+                <input type="text" id="creator-search" placeholder="Filter creators...">
+                <div class="filter-container">
+                    <select id="game-filter">
+                        <option value="all">All Games</option>
+                        <option value="BGMI">BGMI</option>
+                        <option value="Free Fire">Free Fire</option>
+                        <option value="Valorant">Valorant</option>
+                        <option value="Minecraft">Minecraft</option>
+                        <option value="GTA V">GTA V</option>
+                        <option value="Call of Duty Mobile">Call of Duty Mobile</option>
+                    </select>
+                    <select id="audience-filter">
+                        <option value="all">All Audiences</option>
+                        <option value="teen">Teen (13-17)</option>
+                        <option value="youngadult">Young Adult (18-24)</option>
+                        <option value="adult">Adult (25+)</option>
+                    </select>
+                    <select id="size-filter">
+                        <option value="all">All Sizes</option>
+                        <option value="micro">Micro (1K-10K)</option>
+                        <option value="small">Small (10K-50K)</option>
+                        <option value="medium">Medium (50K-500K)</option>
+                        <option value="large">Large (500K+)</option>
+                    </select>
+                    <select id="engagement-filter">
+                        <option value="all">All Engagement</option>
+                        <option value="high">High (10%+)</option>
+                        <option value="medium">Medium (5-10%)</option>
+                        <option value="low">Low (0-5%)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="creators-grid" id="creators-container">
+                <!-- Creator cards will be dynamically loaded here -->
+            </div>
+            <div class="load-more">
+                <button id="load-more-btn">Load More Creators</button>
+            </div>
+        </section>
+
+        <section id="creator-profile" class="creator-profile hidden">
+            <button class="back-button" id="back-to-creators">
+                <i class="fas fa-arrow-left"></i> Back to Creators
+            </button>
+            
+            <div class="profile-header">
+                <div class="profile-thumbnail">
+                    <img id="profile-img" src="" alt="Creator Thumbnail">
+                </div>
+                <div class="profile-info">
+                    <h2 id="profile-name"></h2>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <i class="fas fa-users"></i>
+                            <span id="profile-subscribers"></span>
+                            <label>Subscribers</label>
+                        </div>
+                        <div class="profile-stat">
+                            <i class="fas fa-heart"></i>
+                            <span id="profile-engagement"></span>
+                            <label>Engagement</label>
+                        </div>
+                        <div class="profile-stat">
+                            <i class="fas fa-video"></i>
+                            <span id="profile-videos"></span>
+                            <label>Videos</label>
+                        </div>
+                        <div class="profile-stat">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span id="profile-cost"></span>
+                            <label>Est. Cost</label>
+                        </div>
+                    </div>
+                    <div class="profile-tags" id="profile-tags">
+                        <!-- Tags will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-about">
+                    <h3>About</h3>
+                    <p id="profile-description"></p>
+                    
+                    <h3>Audience Demographics</h3>
+                    <div class="profile-demographics">
+                        <canvas id="profile-audience-chart"></canvas>
+                    </div>
+                    
+                    <h3>Engagement Metrics</h3>
+                    <div class="profile-engagement-metrics">
+                        <canvas id="profile-engagement-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="profile-videos">
+                    <h3>Recent Videos</h3>
+                    <div class="videos-grid" id="profile-recent-videos">
+                        <!-- Recent videos will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="profile-recommendations">
+                    <h3>Brand Fit Analysis</h3>
+                    <div class="brand-fit-score">
+                        <div class="score-ring" id="brand-fit-ring">
+                            <div class="score-value" id="brand-fit-value">8.5</div>
+                            <div class="score-label">Brand Fit</div>
+                        </div>
+                        <div class="brand-fit-details" id="brand-fit-details">
+                            <!-- Brand fit details will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="recommended-actions">
+                        <button class="action-button"><i class="fas fa-bookmark"></i> Save Creator</button>
+                        <button class="action-button"><i class="fas fa-envelope"></i> Contact</button>
+                        <button class="action-button"><i class="fas fa-file-download"></i> Export Profile</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analytics" class="analytics">
+            <h2>Data Insights</h2>
+            <div class="analytics-filters">
+                <select id="analytics-metric">
+                    <option value="engagement">Engagement Rate</option>
+                    <option value="audience">Audience Demographics</option>
+                    <option value="growth">Growth Rate</option>
+                    <option value="roi">Estimated ROI</option>
+                </select>
+                <select id="analytics-game">
+                    <option value="all">All Games</option>
+                    <option value="BGMI">BGMI</option>
+                    <option value="Free Fire">Free Fire</option>
+                    <option value="Valorant">Valorant</option>
+                    <option value="Minecraft">Minecraft</option>
+                    <option value="GTA V">GTA V</option>
+                    <option value="Call of Duty Mobile">Call of Duty Mobile</option>
+                </select>
+                <select id="analytics-timeframe">
+                    <option value="1m">Last Month</option>
+                    <option value="3m">Last 3 Months</option>
+                    <option value="6m">Last 6 Months</option>
+                    <option value="1y">Last Year</option>
+                </select>
+                <button id="apply-analytics">Apply</button>
+            </div>
+            <div class="dashboard-container">
+                <div class="chart-container">
+                    <canvas id="engagement-chart"></canvas>
+                    <h3>Engagement by Creator Size</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="audience-chart"></canvas>
+                    <h3>Audience Demographics</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="growth-chart"></canvas>
+                    <h3>Growth Trends</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trend-chart"></canvas>
+                    <h3>Trending Games</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="rising-stars" class="rising-stars">
+            <h2>Upcoming Creators</h2>
+            <p class="section-description">Discover new talents with high growth potential and engaged audiences</p>
+            
+            <div class="rising-stars-metrics">
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="metric-title">Growth Rate</div>
+                    <div class="metric-range">Min: 20% per month</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-users"></i></div>
+                    <div class="metric-title">Subscriber Range</div>
+                    <div class="metric-range">10K - 100K</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-heart"></i></div>
+                    <div class="metric-title">Engagement Rate</div>
+                    <div class="metric-range">Min: 12%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon"><i class="fas fa-video"></i></div>
+                    <div class="metric-title">Video Frequency</div>
+                    <div class="metric-range">Min: 3 per week</div>
+                </div>
+            </div>
+            
+            <div class="rising-stars-grid" id="rising-stars-container">
+                <!-- Rising stars will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <section id="ai-assistant" class="ai-assistant">
+            <h2>AI Creator Insights Assistant</h2>
+            <p class="assistant-description">Ask questions about specific creators, games, or audience demographics</p>
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message assistant">
+                        <div class="message-content">
+                            Hello! I'm NExura's Creator Insights Assistant. I can help you discover and learn more about gaming creators in India. Ask me about specific creators, engagement rates, audience demographics, or recommendations for your brand.
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="user-message" placeholder="Ask about a creator or gaming category...">
+                    <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="assets/logo.svg" alt="NExura Logo" class="logo">
+                <p>Indian Gaming Creator Analytics Platform</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 NExura. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="api-integration.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
